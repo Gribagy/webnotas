@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Notas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cadastro de Notas</h1>
+    <form action="/" method="POST">
+        <input type="text" name="nome" placeholder="Nome do aluno" required>
+        <input type="number" step="0.01" name="nota1" placeholder="Nota 1" required>
+        <input type="number" step="0.01" name="nota2" placeholder="Nota 2" required>
+        <input type="number" step="0.01" name="nota3" placeholder="Nota 3" required>
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <h2>Alunos Cadastrados</h2>
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>Data</th>
+            <th>Nota 1</th>
+            <th>Nota 2</th>
+            <th>Nota 3</th>
+            <th>Média</th>
+            <th>Status</th>
+        </tr>
+        {% for aluno in alunos %}
+        <tr>
+            <td>{{ aluno[0] }}</td>
+            <td>{{ aluno[1] }}</td>
+            <td>{{ aluno[2] }}</td>
+            <td>{{ aluno[3] }}</td>
+            <td>{{ aluno[4] }}</td>
+            <td>{{ aluno[5] }}</td>
+            <td>{{ aluno[6] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
