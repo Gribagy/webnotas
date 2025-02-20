@@ -1,23 +1,31 @@
 from flask import Flask, render_template, request, redirect
 import csv
+import os
 from datetime import datetime
 
 app = Flask(__name__)
 
+
 # Função para salvar os dados no CSV
 def salvar_dados(nome, nota1, nota2, nota3, media, status):
-    with open("notas.csv", mode="a", newline="", encoding="utf8") as arquivo:
+    arquivo_csv = "notas.csv"
+
+    # Verifica se o arquivo já existe
+    existe = os.path.isfile(arquivo_csv)
+
+    with open(arquivo_csv, mode="a", newline="", encoding="utf8") as arquivo:
         escritor = csv.writer(arquivo)
 
-        # Escreve o cabeçalho apenas se o arquivo estiver vazio
-        if arquivo.tell() == 0:
+        # Escreve o cabeçalho apenas se o arquivo for criado agora
+        if not existe:
             escritor.writerow(["Nome", "Data", "Nota1", "Nota2", "Nota3", "Média", "Status"])
 
         # Captura a data atual
         data_atual = datetime.today().strftime("%d/%m/%Y")
 
-        # Salva os dados no CSV
+        # Salva os dados no CSV ✅
         escritor.writerow([nome, data_atual, nota1, nota2, nota3, media, status])
+
 
 # Rota principal (exibe o formulário e a lista de alunos)
 @app.route("/", methods=["GET", "POST"])
@@ -50,6 +58,7 @@ def index():
         pass  # Se o arquivo não existir, apenas ignora
 
     return render_template("index.html", alunos=alunos)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
